@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Larisa Ioana — CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f5f4f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px 60px;
+      color: #1a1a1a;
+    }
+
+    .cv-shell {
+      background: #ffffff;
+      border: 0.5px solid rgba(0,0,0,0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.04);
+    }
+
+    .cv-header {
+      padding: 28px 32px 22px;
+      border-bottom: 0.5px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .cv-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 5px;
+    }
+
+    .cv-title {
+      font-size: 12.5px;
+      color: #666;
+      letter-spacing: 0.2px;
+      margin-bottom: 7px;
+    }
+
+    .cv-badge {
+      display: inline-block;
+      background: #EEEDFE;
+      color: #3C3489;
+      border-radius: 20px;
+      font-size: 11px;
+      padding: 2px 10px;
+    }
+
+    .cv-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .cv-meta a, .cv-meta span {
+      font-size: 12px;
+      color: #999;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .cv-meta a:hover { color: #534AB7; }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    .stat-cell {
+      padding: 14px 16px;
+      border-right: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    .stat-cell:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #111;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .messages {
+      padding: 20px 24px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .msg {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+    }
+
+    .msg.user { flex-direction: row-reverse; }
+
+    .avatar {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      flex-shrink: 0;
+      background: #f0efeb;
+      color: #888;
+      border: 0.5px solid rgba(0,0,0,0.1);
+    }
+
+    .avatar.ai {
+      background: #EEEDFE;
+      color: #3C3489;
+      border-color: #AFA9EC;
+    }
+
+    .bubble {
+      max-width: 84%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: #222;
+      background: #f7f6f2;
+      border: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    .msg.user .bubble {
+      background: #EEEDFE;
+      border-color: #AFA9EC;
+      color: #26215C;
+    }
+
+    .bubble .hl { font-weight: 500; color: #111; }
+
+    .bubble .pill {
+      display: inline-block;
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 20px;
+      font-size: 11px;
+      padding: 1px 8px;
+      margin: 2px 2px 2px 0;
+      color: #555;
+    }
+
+    .bubble p { margin-bottom: 6px; }
+    .bubble p:last-child { margin-bottom: 0; }
+
+    .bubble .proj-card {
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.09);
+      border-radius: 10px;
+      padding: 10px 13px;
+      margin-top: 8px;
+    }
+
+    .bubble .proj-card + .proj-card { margin-top: 6px; }
+
+    .bubble .proj-title {
+      font-weight: 500;
+      font-size: 13px;
+      color: #111;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .bubble .proj-tag {
+      font-size: 10px;
+      background: #EEEDFE;
+      color: #534AB7;
+      border-radius: 20px;
+      padding: 1px 7px;
+      font-weight: 400;
+    }
+
+    .bubble .proj-tag.teal {
+      background: #E1F5EE;
+      color: #0F6E56;
+    }
+
+    .bubble .proj-body {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .bubble .proj-body a {
+      color: #534AB7;
+      text-decoration: none;
+    }
+
+    .bubble .proj-body a:hover { text-decoration: underline; }
+
+    .bubble .metric-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 7px;
+      flex-wrap: wrap;
+    }
+
+    .bubble .metric {
+      background: #f7f6f2;
+      border-radius: 8px;
+      padding: 3px 9px;
+      font-size: 11.5px;
+      color: #666;
+    }
+
+    .bubble .metric b { color: #222; font-weight: 500; }
+
+    .bubble .reason {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 0.5px solid rgba(0,0,0,0.07);
+    }
+
+    .bubble .reason:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .bubble .reason-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #EEEDFE;
+      color: #534AB7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      font-weight: 500;
+      margin-top: 1px;
+    }
+
+    .bubble .reason-body {
+      font-size: 12.5px;
+      color: #555;
+      line-height: 1.55;
+    }
+
+    .bubble .reason-body strong {
+      color: #111;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #bbb;
+      animation: bounce 1.2s infinite;
+      display: inline-block;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-4px); }
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      padding: 0 24px 12px;
+    }
+
+    .chip {
+      background: #fff;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 20px;
+      font-size: 11.5px;
+      padding: 4px 13px;
+      cursor: pointer;
+      color: #555;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.12s;
+    }
+
+    .chip:hover {
+      border-color: #7F77DD;
+      color: #3C3489;
+      background: #EEEDFE;
+    }
+
+    .input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px 16px;
+      border-top: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    #cv-input {
+      flex: 1;
+      border: 0.5px solid rgba(0,0,0,0.15);
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-family: 'DM Sans', sans-serif;
+      background: #fff;
+      color: #222;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    #cv-input:focus {
+      border-color: #7F77DD;
+      box-shadow: 0 0 0 3px #EEEDFE;
+    }
+
+    #cv-input::placeholder { color: #bbb; }
+
+    .send-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #534AB7;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.12s;
+    }
+
+    .send-btn:hover { background: #3C3489; }
+    .send-btn svg { width: 13px; height: 13px; fill: white; }
+
+    @media (max-width: 500px) {
+      .cv-header { flex-direction: column; gap: 10px; }
+      .cv-meta { align-items: flex-start; }
+      .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .stat-cell:nth-child(3) { border-top: 0.5px solid rgba(0,0,0,0.08); }
+      .stat-cell:nth-child(4) { border-top: 0.5px solid rgba(0,0,0,0.08); }
+    }
+  </style>
+</head>
+<body>
+  <div class="cv-shell">
+    <div class="cv-header">
+      <div>
+        <div class="cv-name">Larisa Ioana</div>
+        <div class="cv-title">Digital Marketing & Growth · B2B & B2C Tech · Remote / Bucharest</div>
+        <div><span class="cv-badge">Targeting: Product Marketing roles</span></div>
+      </div>
+      <div class="cv-meta">
+        <a href="mailto:larisa8.ioana@gmail.com">larisa8.ioana@gmail.com</a>
+        <a href="https://linkedin.com/in/larisa-ioana-870b85b5" target="_blank">LinkedIn</a>
+        <a href="https://psyche977114.substack.com/p/psyche-public-roadmap" target="_blank">psyche roadmap</a>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-cell">
+        <div class="stat-num">9+</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">700K</div>
+        <div class="stat-label">Podcast downloads</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">8%</div>
+        <div class="stat-label">Newsletter CTR</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">6%</div>
+        <div class="stat-label">Google Ads CTR</div>
+      </div>
+    </div>
+
+    <div class="messages" id="msgs">
+      <div class="msg ai">
+        <div class="avatar ai">LI</div>
+        <div class="bubble">Hi — I'm Larisa's interactive CV. I'm especially good at making the case for why her background is a natural fit for product marketing. What would you like to explore?</div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <button class="chip" onclick="ask('Why product marketing?')">Why product marketing?</button>
+      <button class="chip" onclick="ask('Why hire you?')">Why hire you?</button>
+      <button class="chip" onclick="ask('Special projects')">Special projects</button>
+      <button class="chip" onclick="ask('Podcast and metrics')">Podcast & metrics</button>
+      <button class="chip" onclick="ask('Semaphore Summit')">Semaphore Summit</button>
+      <button class="chip" onclick="ask('Work experience')">Experience</button>
+      <button class="chip" onclick="ask('Core skills')">Skills</button>
+      <button class="chip" onclick="ask('Tools')">Tools</button>
+      <button class="chip" onclick="ask('Education')">Education</button>
+      <button class="chip" onclick="ask('Contact')">Contact</button>
+    </div>
+
+    <div class="input-row">
+      <input id="cv-input" type="text" placeholder="Ask anything..." autocomplete="off" />
+      <button class="send-btn" onclick="sendMsg()">
+        <svg viewBox="0 0 24 24"><path d="M2 21L23 12 2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const KB = {
+      pmm: {
+        match: ['product marketing','pmm','product market','why product'],
+        html: `<p>Larisa hasn't held the title — but she's been doing the work.</p>
+<div class="reason"><div class="reason-icon">1</div><div class="reason-body"><strong>Translating product into narrative</strong>At Semaphore, her job was turning deeply technical CI/CD features into stories that developers actually wanted to read — and act on. That's the core of product marketing.</div></div>
+<div class="reason"><div class="reason-icon">2</div><div class="reason-body"><strong>Cross-functional by default</strong>She worked constantly at the intersection of engineering, product, and content — never siloed. PMMs live there too.</div></div>
+<div class="reason"><div class="reason-icon">3</div><div class="reason-body"><strong>Competitive intelligence baked in</strong>Her PR background means she always has one eye on what competitors are doing, which channels they're using, and what narratives are winning in the market.</div></div>
+<div class="reason"><div class="reason-icon">4</div><div class="reason-body"><strong>Full funnel, not just top of funnel</strong>Paid acquisition, SEO, newsletter, podcast, event production — she's touched every stage of the funnel and can connect them into a coherent go-to-market motion.</div></div>
+<div class="reason"><div class="reason-icon">5</div><div class="reason-body"><strong>Builder mindset</strong>She's vibe coding her own product (psyche) with a public roadmap. She understands the product development cycle from the inside — rare for a marketer.</div></div>`
+      },
+      hire: {
+        match: ['hire','why you','stand out','different','unique','value','offer','should i'],
+        html: `<p>Five honest reasons:</p>
+<div class="reason"><div class="reason-icon">R</div><div class="reason-body"><strong>She always does her research</strong>Whether it's a new channel, a competitor move, or an unfamiliar audience — she goes deep before acting. Her PR years made competitive monitoring a reflex, not a task.</div></div>
+<div class="reason"><div class="reason-icon">C</div><div class="reason-body"><strong>Creative, but grounded in data</strong>She'll bring unexpected ideas — and then back them with a 6% Google Ads CTR and an 8% newsletter CTR to show they work. Not creativity for its own sake.</div></div>
+<div class="reason"><div class="reason-icon">T</div><div class="reason-body"><strong>Loves working with other teams</strong>She's spent years as the bridge between engineering, product, and marketing — translating both ways. Cross-functional collaboration isn't a soft skill, it's how she works.</div></div>
+<div class="reason"><div class="reason-icon">N</div><div class="reason-body"><strong>Knows what's newest in marketing</strong>AI-assisted content workflows, vibe coding prototypes, developer community building — she's not reading about trends, she's running them.</div></div>
+<div class="reason"><div class="reason-icon">P</div><div class="reason-body"><strong>PR instincts = market instincts</strong>A background in PR means she's always watching how competitors position, which channels they favour, and what's landing with audiences. That's a competitive edge in any PMM role.</div></div>`
+      },
+      projects: {
+        match: ['project','psyche','special','side','building','vibe','founder','startup','lenz'],
+        html: `<p>Two projects that show who she is beyond the job titles:</p>
+<div class="proj-card">
+  <div class="proj-title">psyche-lenz.com <span class="proj-tag">Founder · 2026–present</span></div>
+  <div class="proj-body">A reflection experience for museum and gallery visitors — at the intersection of psychology and cognitive insight. Built with AI-assisted workflows and vibe coding. Currently prototyping the core experience, exploring kiosk, mobile, and hybrid form factors, with early institutional interest forming. Privacy-first by design.<br><br><a href="https://psyche977114.substack.com/p/psyche-public-roadmap" target="_blank">View public roadmap →</a></div>
+  <div class="metric-row"><span class="metric">Active prototype</span><span class="metric">Vibe coding</span><span class="metric">Public roadmap</span></div>
+</div>
+<div class="proj-card">
+  <div class="proj-title">Semaphore Summit <span class="proj-tag teal">Open Source Launch · Feb 2025</span></div>
+  <div class="proj-body">Produced and promoted Semaphore's 3-day online conference marking its transition from SaaS to open source — a major go-to-market moment. Drove registrations, shaped messaging for a developer audience, and coordinated across engineering, product, and content teams.<br><br><a href="https://semaphore.io/summit" target="_blank">semaphore.io/summit →</a></div>
+  <div class="metric-row"><span class="metric">3-day event</span><span class="metric">Open source launch</span><span class="metric">Developer audience</span></div>
+</div>`
+      },
+      podcast: {
+        match: ['podcast','download','700','audio','newsletter','ctr','ads','metrics','numbers','results'],
+        html: `<p><span class="hl">Semaphore Uncut Podcast</span> — full ownership from strategy to distribution.</p>
+<div class="proj-card">
+  <div class="proj-body">End-to-end pipeline via Buzzsprout, automated distribution through Zapier and Buffer. Editorial strategy built around organic discoverability and developer trust-building — the kind of long game that creates brand authority, not just traffic spikes.</div>
+  <div class="metric-row"><span class="metric"><b>~700,000</b> total downloads</span><span class="metric"><b>~8%</b> newsletter CTR</span><span class="metric"><b>~6%</b> Google Ads CTR</span></div>
+</div>
+<p style="margin-top:8px;font-size:12px;color:#999">For context: B2B tech newsletter average CTR is ~2–3%. Google Ads CTR on niche technical keywords averages ~1–2%. These are genuinely strong numbers.</p>`
+      },
+      summit: {
+        match: ['summit','open source','conference','event','launch','semaphore summit'],
+        html: `<div class="proj-card">
+  <div class="proj-title">Semaphore Summit 2025 <span class="proj-tag teal">Open Source Launch Event</span></div>
+  <div class="proj-body">Semaphore's transition from SaaS to open source — announced through a 3-day online developer conference in February 2025. Larisa led growth marketing: driving registrations, shaping the product narrative for a developer audience, and coordinating across teams for a cohesive launch.<br><br>Featured talks from the Semaphore engineering team and customers including Confluent, Channable, and SimplePractice. Daily fireside chats, full replays on YouTube.<br><br><a href="https://semaphore.io/summit" target="_blank">semaphore.io/summit →</a></div>
+  <div class="metric-row"><span class="metric">Feb 26–28, 2025</span><span class="metric">Online · global</span><span class="metric">Free event</span></div>
+</div>`
+      },
+      experience: {
+        match: ['experience','work','job','career','history','background','semaphore','avira'],
+        html: `<p><span class="hl">Psyche-lenz.com</span> — Founder <span style="color:#aaa;font-size:11.5px">2026–present</span><br>Building a psychology & cognition platform from the ground up. Active prototype via vibe coding and AI workflows.</p>
+<p><span class="hl">Semaphore</span> — DevRel & Growth Marketing <span style="color:#aaa;font-size:11.5px">Feb 2025–Feb 2026</span><br>Scaled podcast to ~700K downloads. Produced Semaphore Summit — the open source launch event. Newsletter CTR ~8%, Google Ads CTR ~6%. Translated technical product features into high-converting narratives across every channel.</p>
+<p><span class="hl">Semaphore</span> — Marketing Project Manager <span style="color:#aaa;font-size:11.5px">2020–2025</span><br>Global technical editorial pipeline, KPI dashboards in PostHog & GA, CRM ops in Salesforce. Cross-functional partner across engineering, product, and content.</p>
+<p><span class="hl">Avira</span> — PR Specialist <span style="color:#aaa;font-size:11.5px">2016–2020</span><br>Multi-country B2C PR across EU & US. Tier-1 placements in Forbes, PCMag, Wired. Built the competitive monitoring and media channel instincts that inform her marketing thinking today.</p>`
+      },
+      skills: {
+        match: ['skill','expertise','speciali','good at','strength','core'],
+        html: `<p>Where she works best:</p><p><span class="pill">Product Marketing</span><span class="pill">Go-to-Market Strategy</span><span class="pill">Developer Audience</span><span class="pill">B2B & B2C Growth</span><span class="pill">Competitive Intelligence</span><span class="pill">Performance Marketing</span><span class="pill">Full-Funnel Campaigns</span><span class="pill">AI Content Systems</span><span class="pill">SEO & Organic Growth</span><span class="pill">CRO</span><span class="pill">Global PR</span><span class="pill">Event Production</span><span class="pill">Cross-functional Collaboration</span></p>`
+      },
+      tools: {
+        match: ['tool','tech','software','platform','stack','mailchimp','salesforce','zapier'],
+        html: `<p><span class="pill">Mailchimp</span><span class="pill">SendGrid</span><span class="pill">Zapier</span><span class="pill">Buzzsprout</span><span class="pill">WordPress</span><span class="pill">Buffer</span><span class="pill">Salesforce</span><span class="pill">PostHog</span><span class="pill">Google Analytics</span><span class="pill">Google Ads</span><span class="pill">LinkedIn Ads</span></p>`
+      },
+      education: {
+        match: ['educat','degree','univer','master','bachelor','study','school','language','english','spanish'],
+        html: `<p><span class="hl">MSc Communication & Public Relations</span><br>National University of Political Studies & Public Administration<br><span style="color:#aaa;font-size:11.5px">2012–2014 · Bucharest</span></p>
+<p><span class="hl">BA European Cultural Studies</span><br>University of Bucharest<br><span style="color:#aaa;font-size:11.5px">2009–2012 · Bucharest</span></p>
+<p style="margin-top:6px;font-size:12px;color:#777">Languages: English (C1) · Spanish (working) · Romanian (native)</p>`
+      },
+      contact: {
+        match: ['contact','email','reach','linkedin','connect'],
+        html: `<p><span class="hl">larisa8.ioana@gmail.com</span><br><a href="https://linkedin.com/in/larisa-ioana-870b85b5" target="_blank" style="color:#534AB7">linkedin.com/in/larisa-ioana-870b85b5</a><br><a href="https://psyche977114.substack.com/p/psyche-public-roadmap" target="_blank" style="color:#534AB7">psyche public roadmap →</a></p>
+<p style="color:#888;font-size:12px;margin-top:6px">Bucharest · open to remote & hybrid roles · targeting product marketing positions.</p>`
+      }
+    };
+
+    const fallback = `<p>Try asking about <span class="hl">why product marketing</span>, <span class="hl">why hire you</span>, <span class="hl">special projects</span>, <span class="hl">podcast & metrics</span>, <span class="hl">Semaphore Summit</span>, <span class="hl">experience</span>, <span class="hl">skills</span>, <span class="hl">tools</span>, or <span class="hl">contact</span>.</p>`;
+
+    function normalize(q) { return q.toLowerCase().replace(/[^a-z0-9 ]/g, ''); }
+
+    function findAnswer(q) {
+      const n = normalize(q);
+      for (const key of Object.keys(KB)) {
+        if (KB[key].match.some(m => n.includes(m))) return KB[key].html;
+      }
+      return fallback;
+    }
+
+    function addMsg(html, isUser) {
+      const msgs = document.getElementById('msgs');
+      const row = document.createElement('div');
+      row.className = 'msg' + (isUser ? ' user' : ' ai');
+      const av = document.createElement('div');
+      av.className = 'avatar' + (isUser ? '' : ' ai');
+      av.textContent = isUser ? 'You' : 'LI';
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.innerHTML = html;
+      row.appendChild(av);
+      row.appendChild(bubble);
+      msgs.appendChild(row);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function addTyping() {
+      const msgs = document.getElementById('msgs');
+      const row = document.createElement('div');
+      row.className = 'msg ai';
+      row.id = 'typing-row';
+      const av = document.createElement('div');
+      av.className = 'avatar ai';
+      av.textContent = 'LI';
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.innerHTML = '<div style="display:flex;gap:4px;align-items:center;padding:2px 0"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+      row.appendChild(av);
+      row.appendChild(bubble);
+      msgs.appendChild(row);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    let busy = false;
+
+    function ask(q) {
+      if (busy) return;
+      document.getElementById('cv-input').value = q;
+      sendMsg();
+    }
+
+    function sendMsg() {
+      if (busy) return;
+      const inp = document.getElementById('cv-input');
+      const q = inp.value.trim();
+      if (!q) return;
+      inp.value = '';
+      busy = true;
+      addMsg(q, true);
+      addTyping();
+      setTimeout(() => {
+        const tr = document.getElementById('typing-row');
+        if (tr) tr.remove();
+        addMsg(findAnswer(q), false);
+        busy = false;
+      }, 500);
+    }
+
+    document.getElementById('cv-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMsg();
+    });
+  </script>
+</body>
+</html>
